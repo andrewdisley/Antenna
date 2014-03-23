@@ -60,6 +60,8 @@ class Antenna
 
 		// Deal with the parameters
 		$video_url = ($this->EE->TMPL->fetch_param('url')) ?  html_entity_decode($this->EE->TMPL->fetch_param('url')) : false;
+		$width = ($this->EE->TMPL->fetch_param('width')) ? "&width=" . $this->EE->TMPL->fetch_param('width') : "";
+		$height = ($this->EE->TMPL->fetch_param('height')) ? "&height=" . $this->EE->TMPL->fetch_param('height') : "";
 		$max_width = ($this->EE->TMPL->fetch_param('max_width')) ? "&maxwidth=" . $this->EE->TMPL->fetch_param('max_width') : "";
 		$max_height = ($this->EE->TMPL->fetch_param('max_height')) ? "&maxheight=" . $this->EE->TMPL->fetch_param('max_height') : "";
 		$wmode = ($this->EE->TMPL->fetch_param('wmode')) ? $this->EE->TMPL->fetch_param('wmode') : "";
@@ -109,7 +111,7 @@ class Antenna
 		}
 
 
-		$url .= urlencode($video_url) . $max_width . $max_height . $wmode_param . $vimeo_byline . $vimeo_title . $vimeo_autoplay . $vimeo_portrait . $vimeo_api . $viddler_type . $viddler_ratio;
+		$url .= urlencode($video_url) . $max_width . $max_height . $width . $height . $wmode_param . $vimeo_byline . $vimeo_title . $vimeo_autoplay . $vimeo_portrait . $vimeo_api . $viddler_type . $viddler_ratio;
 
 		// checking if url has been cached
 		$cached_url = $this->_check_cache($url);
