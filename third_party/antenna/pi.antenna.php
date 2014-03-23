@@ -85,6 +85,9 @@ class Antenna
 		$vimeo_portrait	= ($this->EE->TMPL->fetch_param('vimeo_portrait') == "false") ? "&portrait=0" : "";
 		$vimeo_api		= ($this->EE->TMPL->fetch_param('vimeo_api') == "true") ? "&api=1" : "";
 
+		// If dimensions parameter is passed, Output a string of data-dimensions for use with modals
+		$dimensions = ($this->EE->TMPL->fetch_param('dimensions') == "true") ? true : false;
+
 		// Some optional Viddler parameters
 		$viddler_type = ($this->EE->TMPL->fetch_param('viddler_type')) ? "&type=" . $this->EE->TMPL->fetch_param('viddler_type') : "";
 		$viddler_ratio = ($this->EE->TMPL->fetch_param('viddler_ratio')) ? "&ratio=" . $this->EE->TMPL->fetch_param('viddler_ratio') : "";
@@ -140,6 +143,12 @@ class Antenna
 
 		// Decode the cURL data
 		$video_info = simplexml_load_string($video_info);
+
+		// If dimensions parameter is passed, return out a string for use as a data attribute
+		if ($dimensions) {
+			$this->return_data = 'data-dimensions="' . $video_info->width . ',' . $video_info->height . '"';
+			return;
+		}
 
     	// Inject wmode transparent if required
     	if ($wmode === 'transparent' || $wmode === 'opaque' || $wmode === 'window' ) {
